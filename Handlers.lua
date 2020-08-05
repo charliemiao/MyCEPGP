@@ -286,6 +286,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 end
 
 function CEPGP_handleCombat(name, except, guid)
+	print("CEPGP_handleCombat: " .. name .. "/" .. except .. "/" .. guid)
 	if (L[name] == "The Prophet Skeram" or L[name] == "Majordomo Executus") and not except then
 		return;
 	end
