@@ -122,6 +122,7 @@ function CEPGP_ListButton_OnClick(obj)
 			if ranks[rIndex+1] and not CEPGP_tContains(CEPGP_standbyRoster, name) and name ~= UnitName("player") then
 				local _, class, rank, _, oNote, _, classFile = CEPGP_getGuildInfo(name);
 				local EP,GP = CEPGP_getEPGP(oNote, CEPGP_GROUP);
+
 				CEPGP_standbyRoster[#CEPGP_standbyRoster+1] = {
 					[1] = name,
 					[2] = class,

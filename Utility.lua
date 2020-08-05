@@ -528,6 +528,7 @@ function CEPGP_rosterUpdate(event)
 			end
 			if name then
 				local EP, GP = CEPGP_getEPGP(officerNote, CEPGP_GROUP, i, name);
+				
 				local PR = math.floor((EP/GP)*100)/100;
 				CEPGP_roster[name] = {
 					[1] = i,
@@ -835,12 +836,14 @@ end
 --end
 
 function CEPGP_getEPGP(offNote, group, index, name)
+	-- print("i = " .. i .. "/" .. group)
+	-- print("5555555555 " .. offNote .. "/" .. name)
 	if not name then index = CEPGP_nameToIndex(name); end
 	local EP, GP = nil;
 
 	local epgpArray = Split(offNote, ";");
 	offNote = epgpArray[group];
-
+	-- print("666666666666 " .. offNote)
 	if not CEPGP_checkEPGP(offNote) then
 		return 0, BASEGP;
 	else
@@ -873,15 +876,23 @@ function setOffNote(index, offNote, EP, GP, group)
 		offNote = 0 .. "," .. BASEGP .. ";" .. 0 .. "," .. BASEGP .. ";";
 	end
 	local epgpArray = Split(offNote, ";");
-	note = EP .. "," .. GP;
+	local note = EP .. "," .. GP;
+	-- print("epgpArray")
+	-- print(epgpArray[0])
+	-- print(epgpArray[1])
+	-- print(epgpArray[2])
 	epgpArray[group] = note;
-
+	local offNote = "";
 	for i=1,2 do
-		offNote = offNote .. epgpArray[i] .. ";"
+		if epgpArray[i] and epgpArray[i] ~= "" then
+			print(i .. "/" .. epgpArray[i])
+			offNote = offNote .. epgpArray[i] .. ";"
+			print(":" .. offNote)
+		end
 	end
-
-	GuildRosterSetOfficerNote(index, EP .. "," .. GP);
-	GuildRosterSetPublicNote(index, EP .. "," .. GP);
+	-- print("---1 " .. offNote)
+	GuildRosterSetOfficerNote(index, offNote);
+	GuildRosterSetPublicNote(index, offNote);
 end
 
 function Split(szFullString, szSeparator)
@@ -894,7 +905,10 @@ function Split(szFullString, szSeparator)
 			nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))
 			break
 		end
-		nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
+		local temp = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
+		if temp and temp ~= "" then
+			nSplitArray[nSplitIndex] = temp
+		end
 		nFindStartIndex = nFindLastIndex + string.len(szSeparator)
 		nSplitIndex = nSplitIndex + 1
 	end
@@ -902,20 +916,21 @@ function Split(szFullString, szSeparator)
 end
 
 function CEPGP_checkEPGP(note)
-	if string.find(note, '[^0-9,-]') or #note == 0 then
+	if string.find(note, '[^0-9,;-]') or note == "0" or note == "" then
 		return false;
 	end
-	if string.find(note, '^[0-9]+,[0-9]+$') then --EPGP is positive
-		return true;
-	elseif string.find(note, '^%-[0-9]+,[0-9]+$') then --EP is negative
-		return true;
-	elseif string.find(note, '^[0-9]+,%-[0-9]+$') then --GP is negative
-		return true;
-	elseif string.find(note, '^%-[0-9]+,%-[0-9]+$') then --EPGP is negative
-		return true;
-	else
-		return false;
-	end
+	-- if string.find(note, '^[0-9]+,[0-9]+$') then --EPGP is positive
+	-- 	return true;
+	-- elseif string.find(note, '^%-[0-9]+,[0-9]+$') then --EP is negative
+	-- 	return true;
+	-- elseif string.find(note, '^[0-9]+,%-[0-9]+$') then --GP is negative
+	-- 	return true;
+	-- elseif string.find(note, '^%-[0-9]+,%-[0-9]+$') then --EPGP is negative
+	-- 	return true;
+	-- else
+	-- 	return false;
+	-- end
+	return true;
 end
 
 function CEPGP_getItemString(link)
@@ -1578,7 +1593,7 @@ function CEPGP_formatExport()
 			[1] = k, -- Player Name
 			[2] = v[2], -- Class
 			[3] = v[3], -- Guild Rank
-			[4] = EP .. "," .. GP, -- Officer Note, processed like this incase the officer note is blank
+			[4] = v[5], -- EP .. "," .. GP, -- Officer Note, processed like this incase the officer note is blank
 			[5] = v[6] -- Priority
 		};
 	end

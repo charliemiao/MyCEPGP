@@ -279,6 +279,7 @@ function CEPGP_UpdateLootScrollBar(sort)
 end
 
 function CEPGP_UpdateGuildScrollBar()
+
 	local tempTable = {};
 	for name, v in pairs(CEPGP_roster) do
 		local EP, GP = CEPGP_getEPGP(v[5], CEPGP_GROUP, v[1], name)

@@ -383,6 +383,7 @@ function addEPGP(index, note, addEP, addGP)
 		EP = tonumber(EP);
 		GP = tonumber(GP);
 	end
+	print("########### " .. EP .. "/" .. GP)
 	EP = EP + addEP;
 	GP = GP + addGP;
 	if GP < BASEGP then
@@ -391,6 +392,7 @@ function addEPGP(index, note, addEP, addGP)
 	if EP < 0 then
 		EP = 0;
 	end
+	print("==" .. EP .. "/" .. GP)
 	setOffNote(index, note, EP, GP, CEPGP_GROUP);
 	--GuildRosterSetOfficerNote(index, EP .. "," .. GP);
 	--GuildRosterSetPublicNote(index, EP .. "," .. GP);
@@ -806,7 +808,7 @@ function CEPGP_addEP(player, amount, msg)
 		offNote = CEPGP_roster[player][5];
 		local index = CEPGP_getIndex(player, CEPGP_roster[player][1]);
 
-		addEPGP(index, note, amount, 0);
+		addEPGP(index, offNote, amount, 0);
 
 		--checkOffNote(index, offNote);
 		----if offNote == "" or offNote == "Click here to set an Officer's Note" then

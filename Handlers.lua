@@ -25,7 +25,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 					local EP, GP = nil;
 					local inGuild = false;
 					if CEPGP_tContains(CEPGP_roster, arg2, true) then
-						EP, GP = CEPGP_getEPGP(CEPGP_roster[arg2][5], CEPGP_GROUP);
+						EP, GP = CEPGP_getEPGP( CEPGP_roster[arg2][5], CEPGP_GROUP);
 						if CEPGP_minEP[1] and CEPGP_minEP[2] > EP then
 							CEPGP_print(arg2 .. " is interested in this item but doesn't have enough EP.");
 							return;
@@ -75,7 +75,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 				local EP, GP = nil;
 				local inGuild = false;
 				if CEPGP_tContains(CEPGP_roster, arg2, true) then
-					EP, GP = CEPGP_getEPGP(CEPGP_roster[arg2][5], CEPGP_GROUP);
+					EP, GP = CEPGP_getEPGP( CEPGP_roster[arg2][5], CEPGP_GROUP);
 					if CEPGP_minEP[1] and CEPGP_minEP[2] > EP then
 						CEPGP_print(arg2 .. " is interested in this item but doesn't have enough EP.");
 						return;
@@ -148,7 +148,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 			for i = 1, GetNumGuildMembers() do
 				gRoster[i] = {};
 				name , _, _, _, class, _, _, oNote = GetGuildRosterInfo(i);
-				EP, GP = CEPGP_getEPGP(oNote, CEPGP_GROUP);
+				EP, GP = CEPGP_getEPGP( oNote, CEPGP_GROUP);
 				if string.find(name, "-") then
 					name = string.sub(name, 0, string.find(name, "-")-1);
 				end
@@ -199,7 +199,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 							break;
 						end
 					end
-					EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_GROUP);
+					EP, GP = CEPGP_getEPGP( CEPGP_roster[name][5], CEPGP_GROUP);
 					class = CEPGP_roster[name][2];
 					rRoster[count] = {
 						[1] = arg2,
@@ -241,7 +241,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 							EP, GP = 0, BASEGP;
 							class = UnitClass("raid"..i);
 						else
-							EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_GROUP);
+							EP, GP = CEPGP_getEPGP( CEPGP_roster[name][5], CEPGP_GROUP);
 							class = CEPGP_roster[name][2];
 						end
 						count = count + 1;
