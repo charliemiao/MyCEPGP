@@ -1,5 +1,5 @@
 --[[ Globals ]]--
-CEPGP_VERSION = "1.12.8.release-hotfix2";
+CEPGP_VERSION = "2.0.1_bate_by_charliemiao ";
 SLASH_CEPGP1 = "/CEPGP";
 SLASH_CEPGP2 = "/cep";
 
