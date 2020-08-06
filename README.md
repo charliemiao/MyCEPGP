@@ -1,3 +1,11 @@
+基于CEPGP 1.12.8版本，针对工会进行了修改。
+1.需求方式更改为=xuqiu
+2.进行了多副本分开记分处理
+3.增加了批量导入装备分接口
+4.查询接口的“！”均改为了“=”
+
+
+
 # Classic EPGP
 **Do not redistribute this addon. Post a link to this github page instead**
 
