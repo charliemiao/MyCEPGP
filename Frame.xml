@@ -241,7 +241,7 @@
 							</OnClick>
 						</Scripts>
 					</Button>
-					<Button name="CEPGP_button_guild_traffic" inherits="GameMenuButtonTemplate" text="View EPGP Traffic">
+					<Button name="CEPGP_button_guild_traffic" inherits="GameMenuButtonTemplate" text="查看EPGP日志">
 						<Size>
 							<AbsDimension x="125" y="21" />
 						</Size>
