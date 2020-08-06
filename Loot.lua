@@ -137,15 +137,15 @@ function CEPGP_announce(link, x, slotNum, quantity)
 			SendChatMessage("--------------------------", "RAID", CEPGP_LANGUAGE);
 			if rank > 0 then
 				if quantity > 1 then
-					SendChatMessage("分配: x" .. quantity .. " " .. link, "RAID_WARNING", CEPGP_LANGUAGE);
+					SendChatMessage("分配: x" .. quantity .. " " .. link .. "(" .. id .. ")", "RAID_WARNING", CEPGP_LANGUAGE);
 				else
-					SendChatMessage("分配: " .. link, "RAID_WARNING", CEPGP_LANGUAGE);
+					SendChatMessage("分配: " .. link .. "(" .. id .. ")", "RAID_WARNING", CEPGP_LANGUAGE);
 				end
 			else
 				if quantity > 1 then
-					SendChatMessage("分配: x" .. quantity .. " " .. link, "RAID", CEPGP_LANGUAGE);
+					SendChatMessage("分配: x" .. quantity .. " " .. link .. "(" .. id .. ")", "RAID", CEPGP_LANGUAGE);
 				else
-					SendChatMessage("分配: " .. link, "RAID", CEPGP_LANGUAGE);
+					SendChatMessage("分配: " .. link .. "(" .. id .. ")", "RAID", CEPGP_LANGUAGE);
 				end
 			end
 			if quantity > 1 then
