@@ -840,7 +840,9 @@ function CEPGP_getEPGP(offNote, group, index, name)
 	-- print("5555555555 " .. offNote .. "/" .. name)
 	if not name then index = CEPGP_nameToIndex(name); end
 	local EP, GP = nil;
-
+	if offNote == "" or offNote == "Click here to set an Officer's Note" then
+		return 0, BASEGP;
+	end
 	local epgpArray = Split(offNote, ";");
 	offNote = epgpArray[group];
 	-- print("666666666666 " .. offNote)
@@ -859,7 +861,8 @@ end
 function checkOffNote(index, offNote)
 	if offNote == "" or offNote == "Click here to set an Officer's Note" then
 		--offNote = "0," .. BASEGP;
-		setOffNote(index, "",0, BASEGP, CEPGP_GROUP);
+		setOffNote(index, "",0, BASEGP, 1);
+		setOffNote(index, "",0, BASEGP, 2);
 		--GuildRosterSetOfficerNote(index, "0," .. BASEGP);
 		--GuildRosterSetPublicNote(index, "0," .. BASEGP);
 
@@ -885,9 +888,9 @@ function setOffNote(index, offNote, EP, GP, group)
 	local offNote = "";
 	for i=1,2 do
 		if epgpArray[i] and epgpArray[i] ~= "" then
-			print(i .. "/" .. epgpArray[i])
+			-- print(i .. "/" .. epgpArray[i])
 			offNote = offNote .. epgpArray[i] .. ";"
-			print(":" .. offNote)
+			-- print(":" .. offNote)
 		end
 	end
 	-- print("---1 " .. offNote)

@@ -87,7 +87,7 @@ function CEPGP_IncAddonMsg(message, sender, sync)
 			end
 		end
 		CEPGP_vInfo[sender] = args[3];
-		CEPGP_checkVersion(message);
+		-- CEPGP_checkVersion(message);
 		CEPGP_UpdateVersionScrollBar();
 		
 		

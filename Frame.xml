@@ -23,7 +23,76 @@
 				<AbsValue val="32" />
 			</EdgeSize>
 		</Backdrop>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="CEPGP_GROUP_mode" inherits="GameFontNormal" text="当前副本ID">
+					<Color r="1" g="1" b="1"/>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-40" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="CEPGP_GROUP_mode" inherits="GameFontNormal" text="(1 BWL / 2 TAQ)">
+					<Color r="1" g="1" b="1"/>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-60" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
 		<Frames>
+			<EditBox name="CEPGP_GROUP_edit" inherits="InputBoxTemplate">
+				<Size>
+					<AbsDimension x="30" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="0" y="-20" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:SetText(CEPGP_GROUP);
+						self:SetAutoFocus(false);
+						
+					</OnLoad>
+					<OnEnterPressed>
+						self:ClearFocus();
+					</OnEnterPressed>
+					<OnEditFocusLost>
+						self:HighlightText(0,0);
+						local value;
+						value = self:GetText();
+						if value ~= "1" and value ~= "2" then 
+							self:SetText(CEPGP_GROUP);
+							return;
+						end
+						value = tonumber(value);
+						if CEPGP_GROUP == value then
+							self:SetText(CEPGP_GROUP);
+							return;
+						else
+							if value == "" then
+								self:SetText(CEPGP_GROUP);
+								CEPGP_print("1 BWL / 2 TAQ", true);
+								return;
+							else
+								CEPGP_GROUP = value;
+								CEPGP_print("副本已切换");
+							end
+						end
+					</OnEditFocusLost>
+				</Scripts>
+			</EditBox>
 			<Button name="CEPGP_button_guild" inherits="GameMenuButtonTemplate" text="公会">
 				<Size>
 					<AbsDimension x="80" y="21" />
@@ -457,63 +526,11 @@
 								<Anchor point="CENTER" relativePoint="TOP" />
 							</Anchors>
 						</FontString>
-						<FontString name="CEPGP_raid_CEPGP_mode" inherits="GameFontNormal" text="当前副本: 1 BWL / 2 TAQ">
-							<Color r="1" g="1" b="1"/>
-							<Anchors>
-								<Anchor point="CENTER" relativePoint="TOP" relativeTo="CEPGP_guild_CEPGP_mode">
-									<Offset>
-										<AbsDimension x="0" y="0" />
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
+					
 					</Layer>
 				</Layers>
 				<Frames>
-					<EditBox name="CEPGP_GROUP_edit" inherits="InputBoxTemplate">
-						<Size>
-							<AbsDimension x="80" y="20" />
-						</Size>
-						<Anchors>
-							<Anchor point="CENTER" relativePoint="TOP">
-								<Offset>
-									<AbsDimension x="0" y="-20" />
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self:SetAutoFocus(false);
-								self:SetText(CEPGP_GROUP);
-							</OnLoad>
-							<OnEnterPressed>
-								self:ClearFocus();
-							</OnEnterPressed>
-							<OnEditFocusLost>
-								self:HighlightText(0,0);
-								local value;
-								value = self:GetText();
-								if value ~= "1" and value ~= "2" then 
-									self:SetText(CEPGP_GROUP);
-									return;
-								end
-								value = tonumber(value);
-								if CEPGP_GROUP == value then
-									self:SetText(CEPGP_GROUP);
-									return;
-								else
-									if value == "" then
-										self:SetText(CEPGP_GROUP);
-										CEPGP_print("1 BWL / 2 TAQ", true);
-										return;
-									else
-										CEPGP_GROUP = value;
-										CEPGP_print("副本已切换");
-									end
-								end
-							</OnEditFocusLost>
-						</Scripts>
-					</EditBox>
+					
 				</Frames>
 			</Frame>
 			<Frame name="CEPGP_raid" inherits="CEPGPFrameTemplate">
@@ -526,16 +543,6 @@
 							<Color r="1" g="1" b="1"/>
 							<Anchors>
 								<Anchor point="CENTER" relativePoint="TOP" />
-							</Anchors>
-						</FontString>
-						<FontString name="CEPGP_raid_CEPGP_mode" inherits="GameFontNormal" text="当前副本: 1 BWL / 2 TAQ">
-							<Color r="1" g="1" b="1"/>
-							<Anchors>
-								<Anchor point="CENTER" relativePoint="TOP" relativeTo="CEPGP_raid_CEPGP_mode">
-									<Offset>
-										<AbsDimension x="0" y="15" />
-									</Offset>
-								</Anchor>
 							</Anchors>
 						</FontString>
 					</Layer>
@@ -560,50 +567,6 @@
 							</Frame>
 						</ScrollChild>
 					</ScrollFrame>
-					<EditBox name="CEPGP_GROUP_edit" inherits="InputBoxTemplate">
-						<Size>
-							<AbsDimension x="80" y="20" />
-						</Size>
-						<Anchors>
-							<Anchor point="CENTER" relativePoint="TOP">
-								<Offset>
-									<AbsDimension x="0" y="0" />
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self:SetAutoFocus(false);
-								self:SetText(CEPGP_GROUP);
-							</OnLoad>
-							<OnEnterPressed>
-								self:ClearFocus();
-							</OnEnterPressed>
-							<OnEditFocusLost>
-								self:HighlightText(0,0);
-								local value;
-								value = self:GetText();
-								if value ~= "1" and value ~= "2" then 
-									self:SetText(CEPGP_GROUP);
-									return;
-								end
-								value = tonumber(value);
-								if CEPGP_GROUP == value then
-									self:SetText(CEPGP_GROUP);
-									return;
-								else
-									if value == "" then
-										self:SetText(CEPGP_GROUP);
-										CEPGP_print("1 BWL / 2 TAQ", true);
-										return;
-									else
-										CEPGP_GROUP = value;
-										CEPGP_print("副本已切换");
-									end
-								end
-							</OnEditFocusLost>
-						</Scripts>
-					</EditBox>
 					<Button name="CEPGP_raid_name" inherits="CEPGPHeaderButton" text="Name">
 						<Size>
 							<AbsDimension x="30" y="20" />
@@ -1401,8 +1364,6 @@
 													local EP, GP = CEPGP_getEPGP(officerNote, CEPGP_GROUP);
 													if BASEGP > GP then
 														setOffNote(i, officeNote, EP, BASEGP, CEPGP_GROUP);
-<!--														GuildRosterSetOfficerNote(i, EP .. "," .. BASEGP);-->
-<!--														GuildRosterSetPublicNote(i, EP .. "," .. BASEGP);-->
 													end
 												end
 											end

@@ -3,7 +3,7 @@ CEPGP_VERSION = "2.0.1_bate_by_charliemiao ";
 SLASH_CEPGP1 = "/CEPGP";
 SLASH_CEPGP2 = "/cep";
 
-CEPGP_GROUP = 1;--1 bwl, 2 taq
+
 
 CEPGP_VERSION_NOTIFIED = false;
 CEPGP_mode = "guild";
@@ -49,6 +49,7 @@ CEPGP_plugins = {};
 CEPGP_response_stop = false;
 
 --[[ SAVED VARIABLES ]]--
+CEPGP_GROUP = 1;--1 bwl, 2 taq
 CHANNEL = nil;
 CEPGP_lootChannel = nil;
 MOD = nil;
@@ -383,7 +384,7 @@ function addEPGP(index, note, addEP, addGP)
 		EP = tonumber(EP);
 		GP = tonumber(GP);
 	end
-	print("########### " .. EP .. "/" .. GP)
+	-- print("########### " .. EP .. "/" .. GP)
 	EP = EP + addEP;
 	GP = GP + addGP;
 	if GP < BASEGP then
@@ -392,7 +393,7 @@ function addEPGP(index, note, addEP, addGP)
 	if EP < 0 then
 		EP = 0;
 	end
-	print("==" .. EP .. "/" .. GP)
+	-- print("==" .. EP .. "/" .. GP)
 	setOffNote(index, note, EP, GP, CEPGP_GROUP);
 	--GuildRosterSetOfficerNote(index, EP .. "," .. GP);
 	--GuildRosterSetPublicNote(index, EP .. "," .. GP);
