@@ -25,16 +25,6 @@ L["弗莱格尔"] = "Flamegor"
 L["克洛玛古斯"] = "Chromaggus"
 L["奈法利安"] = "Nefarian"
 
-L["预言者斯克拉姆"] = "The Prophet Skeram"
-L["沙尔图拉"] = "Battleguard Sartura"
-L["顽强的范克瑞斯"] = "Fankriss the Unyielding"
-L["哈霍兰公主"] = "Princess Huhuran"
-L["安其拉三宝"] = "The Bug Trio"
-L["维希度斯"] = "Viscidus"
-L["奥罗"] = 	"Ouro"
-L["双子皇帝"] = "The Twin Emperors"
-L["克苏恩"] = "C'Thun"
-
 
 
 L["%s have been defeated! %d EP has been awarded to the raid"] = "%s 被打败了！ %d EP已被授予了团队"

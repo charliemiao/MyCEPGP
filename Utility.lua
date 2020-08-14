@@ -840,9 +840,7 @@ function CEPGP_getEPGP(offNote, group, index, name)
 	-- print("5555555555 " .. offNote .. "/" .. name)
 	if not name then index = CEPGP_nameToIndex(name); end
 	local EP, GP = nil;
-	if offNote == "" or offNote == "Click here to set an Officer's Note" then
-		return 0, BASEGP;
-	end
+
 	local epgpArray = Split(offNote, ";");
 	offNote = epgpArray[group];
 	-- print("666666666666 " .. offNote)
@@ -861,8 +859,7 @@ end
 function checkOffNote(index, offNote)
 	if offNote == "" or offNote == "Click here to set an Officer's Note" then
 		--offNote = "0," .. BASEGP;
-		setOffNote(index, "",0, BASEGP, 1);
-		setOffNote(index, "",0, BASEGP, 2);
+		setOffNote(index, "",0, BASEGP, CEPGP_GROUP);
 		--GuildRosterSetOfficerNote(index, "0," .. BASEGP);
 		--GuildRosterSetPublicNote(index, "0," .. BASEGP);
 
@@ -1920,7 +1917,12 @@ function CEPGP_toggleGPEdit(mode)
 		CEPGP_options_response_gui_checkbox:Enable();
 		CEPGP_options_show_passes_check:Enable();
 		for k, v in pairs(SLOTWEIGHTS) do
+			-- print("-----------------")
+			-- print(k)
+			-- print(v)
 			if k ~= "ROBE" and k ~= "EXCEPTION" then
+				-- print("------5555-")
+				-- print(k)
 				_G["CEPGP_options_" .. k .. "_weight"]:Enable();
 			end
 		end

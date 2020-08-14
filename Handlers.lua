@@ -286,8 +286,6 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 end
 
 function CEPGP_handleCombat(name, except, guid)
-	SendChatMessage("CEPGP_handleCombat: " .. name .. "/" .. except .. "/" .. guid, "GUILD", CEPGP_LANGUAGE);
-	print("CEPGP_handleCombat: " .. name .. "/" .. except .. "/" .. guid)
 	if (L[name] == "The Prophet Skeram" or L[name] == "Majordomo Executus") and not except then
 		return;
 	end
@@ -467,19 +465,27 @@ function CEPGP_handleLoot(event, arg1, arg2)
 		ShowUIPanel(CEPGP_button_loot_dist);
 
 	elseif event == "LOOT_SLOT_CLEARED" then
+		-- print("1");
 		if CEPGP_distributing and arg1 == CEPGP_lootSlot then --Confirms that an item is currently being distributed and that the item taken is the one in question
+			-- print("2");
 			if CEPGP_distPlayer ~= "" and CEPGP_award then
+				-- print("3");
 				CEPGP_distributing = false;
 				CEPGP_toggleGPEdit(true);
+				-- print("4");
 				CEPGP_button_options_loot_gui:Enable();
+				-- print("5");
 				if CEPGP_isML() == 0 then
 					CEPGP_SendAddonMsg("RaidAssistLootClosed", "RAID");
 					CEPGP_SendAddonMsg("LootClosed;", "RAID");
 				end
+				-- print("6");
 				local response;
+				-- print("7");
 				if CEPGP_distribute_popup:GetAttribute("responseName") then
 					response = CEPGP_distribute_popup:GetAttribute("responseName");
 				end
+				-- print("8");
 				if CEPGP_distGP then
 					if response then
 						local message = "Awarded " .. _G["CEPGP_distribute_item_name"]:GetText() .. " to ".. CEPGP_distPlayer .. " for " .. CEPGP_distribute_GP_value:GetText()*CEPGP_rate .. " GP (" .. response .. ")";
@@ -513,6 +519,7 @@ function CEPGP_handleLoot(event, arg1, arg2)
 				_G["distributing"]:Hide();
 				CEPGP_loot:Show();
 			else
+				-- print("2111");
 				CEPGP_distributing = false;
 				CEPGP_toggleGPEdit(true);
 				CEPGP_button_options_loot_gui:Enable();

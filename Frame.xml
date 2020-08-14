@@ -60,11 +60,11 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
+					<OnShow>
 						self:SetText(CEPGP_GROUP);
 						self:SetAutoFocus(false);
 						
-					</OnLoad>
+					</OnShow>
 					<OnEnterPressed>
 						self:ClearFocus();
 					</OnEnterPressed>
@@ -310,7 +310,7 @@
 							</OnClick>
 						</Scripts>
 					</Button>
-					<Button name="CEPGP_button_guild_traffic" inherits="GameMenuButtonTemplate" text="查看EPGP日志">
+					<Button name="CEPGP_button_guild_traffic" inherits="GameMenuButtonTemplate" text="View EPGP Traffic">
 						<Size>
 							<AbsDimension x="125" y="21" />
 						</Size>
@@ -529,9 +529,6 @@
 					
 					</Layer>
 				</Layers>
-				<Frames>
-					
-				</Frames>
 			</Frame>
 			<Frame name="CEPGP_raid" inherits="CEPGPFrameTemplate">
 				<Size>
@@ -545,6 +542,7 @@
 								<Anchor point="CENTER" relativePoint="TOP" />
 							</Anchors>
 						</FontString>
+						
 					</Layer>
 				</Layers>
 				<Frames>
@@ -567,6 +565,7 @@
 							</Frame>
 						</ScrollChild>
 					</ScrollFrame>
+					
 					<Button name="CEPGP_raid_name" inherits="CEPGPHeaderButton" text="Name">
 						<Size>
 							<AbsDimension x="30" y="20" />
@@ -1364,6 +1363,8 @@
 													local EP, GP = CEPGP_getEPGP(officerNote, CEPGP_GROUP);
 													if BASEGP > GP then
 														setOffNote(i, officeNote, EP, BASEGP, CEPGP_GROUP);
+<!--														GuildRosterSetOfficerNote(i, EP .. "," .. BASEGP);-->
+<!--														GuildRosterSetPublicNote(i, EP .. "," .. BASEGP);-->
 													end
 												end
 											end
