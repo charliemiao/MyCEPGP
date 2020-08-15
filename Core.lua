@@ -159,6 +159,7 @@ function CEPGP_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ar
 			if string.find(arg4, "-") then
 				arg4 = string.sub(arg4, 0, string.find(arg4, "-")-1);
 			end
+			print("CHAT_MSG_ADDON " .. arg2);
 			CEPGP_IncAddonMsg(arg2, arg4);
 		end
 	end
@@ -181,8 +182,11 @@ function CEPGP_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ar
 	if event == "CHAT_MSG_MONSTER_YELL" then
 		local name = arg2;
 		local guid = arg12;
+		print("CHAT_MSG_MONSTER_YELL ");
 		if L[arg2] == "The Prophet Skeram" then
+			print("CHAT_MSG_MONSTER_YELL The Prophet Skeram");
 			if arg1 == L["You only delay... the inevetable."] then
+				print("CHAT_MSG_MONSTER_YELL You only delay... the inevetable.");
 				local name = arg2;
 				local guid = arg12;
 				CEPGP_handleCombat(name, true, guid);
@@ -191,7 +195,8 @@ function CEPGP_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ar
 		end
 	end
 	
-	if CEPGP_use then --EPGP and loot distribution related 
+	if CEPGP_use then --EPGP and loot distribution related
+		print("event : " .. event);
 		if event == "COMBAT_LOG_EVENT_UNFILTERED" then
 			local _, action, _, _, _, _, _, guid, name = CombatLogGetCurrentEventInfo();
 			if action == "UNIT_DIED" and string.find(guid, "Creature") then
@@ -227,8 +232,11 @@ function CEPGP_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ar
 			end
 			
 		elseif event == "CHAT_MSG_MONSTER_YELL" then
+			print("CHAT_MSG_MONSTER_YELL  another ");
 			if L[arg2] == "The Prophet Skeram" then
+				print("CHAT_MSG_MONSTER_YELL  another The Prophet Skeram");
 				if arg1 == L["You only delay... the inevetable."] then
+					print("CHAT_MSG_MONSTER_YELL  another You only delay... the inevetable.");
 					local name = arg2;
 					local guid = arg12;
 					CEPGP_handleCombat(name, true, guid);

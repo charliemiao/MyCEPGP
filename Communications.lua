@@ -418,6 +418,8 @@ function CEPGP_IncAddonMsg(message, sender, sync)
 		if CEPGP_tContains(CEPGP_kills, guid) then
 			return;
 		end
+		print("?KillUpdate name : " .. name);
+		print("?KillUpdate L[name] : " .. L[name]);
 		if L[name] == "Zealot Zath" or L[name] == "Zealot Lor'Khan" then
 			CEPGP_handleCombat(name, false, guid);
 		end

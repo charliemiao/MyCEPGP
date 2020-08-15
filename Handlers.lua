@@ -286,9 +286,12 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 end
 
 function CEPGP_handleCombat(name, except, guid)
+	print("CEPGP_handleCombat" .. name);
+	print("CEPGP_handleCombat" .. L[name]);
 	if (L[name] == "The Prophet Skeram" or L[name] == "Majordomo Executus") and not except then
 		return;
 	end
+	print("CEPGP_handleCombat 1");
 	if (L[name] == "Lord Kazzak" or	L[name] == "Azuregos" or
 		L[name] == "Emeriss" or	L[name] == "Lethon" or
 		L[name] == "Ysondre" or	L[name] == "Taerar") and not except then
@@ -299,7 +302,9 @@ function CEPGP_handleCombat(name, except, guid)
 			CEPGP_ep_award_confirm:Show();
 			return;
 	end
+	print("CEPGP_handleCombat 2");
 	if CEPGP_tContains(CEPGP_kills, guid) then return; end
+	print("CEPGP_handleCombat 3");
 	local EP;
 	if (((GetLootMethod() == "master" and CEPGP_isML() == 0) or (GetLootMethod() == "group" and UnitIsGroupLeader("player"))) and CEPGP_ntgetn(CEPGP_roster) > 0) or CEPGP_debugMode then
 		local success = CEPGP_getCombatModule(name, guid);
@@ -414,7 +419,7 @@ function CEPGP_getCombatModule(name, guid)
 			return false;
 		end
 	end
-	
+
 	CEPGP_kills[#CEPGP_kills+1] = guid;
 	CEPGP_combatModule = L[name];
 	return L[name];
