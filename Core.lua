@@ -1,5 +1,5 @@
 --[[ Globals ]]--
-CEPGP_VERSION = "2.1.0.By_CharlieMiao";
+CEPGP_VERSION = "2.2.0.bate.By_CharlieMiao";
 SLASH_CEPGP1 = "/CEPGP";
 SLASH_CEPGP2 = "/cep";
 
