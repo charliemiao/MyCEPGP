@@ -25,7 +25,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 					local EP, GP = nil;
 					local inGuild = false;
 					if CEPGP_tContains(CEPGP_roster, arg2, true) then
-						EP, GP = CEPGP_getEPGP( CEPGP_roster[arg2][5], CEPGP_GROUP);
+						EP, GP = CEPGP_getEPGP( CEPGP_roster[arg2][5]);
 						if CEPGP_minEP[1] and CEPGP_minEP[2] > EP then
 							CEPGP_print(arg2 .. " is interested in this item but doesn't have enough EP.");
 							return;
@@ -75,7 +75,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 				local EP, GP = nil;
 				local inGuild = false;
 				if CEPGP_tContains(CEPGP_roster, arg2, true) then
-					EP, GP = CEPGP_getEPGP( CEPGP_roster[arg2][5], CEPGP_GROUP);
+					EP, GP = CEPGP_getEPGP( CEPGP_roster[arg2][5]);
 					if CEPGP_minEP[1] and CEPGP_minEP[2] > EP then
 						CEPGP_print(arg2 .. " is interested in this item but doesn't have enough EP.");
 						return;
@@ -122,7 +122,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 		end
 	elseif event == "CHAT_MSG_WHISPER" and string.lower(arg1) == "=info" then
 		if CEPGP_getGuildInfo(arg2) ~= nil then
-			local EP, GP = CEPGP_getEPGP(CEPGP_roster[arg2][5], CEPGP_GROUP);
+			local EP, GP = CEPGP_getEPGP(CEPGP_roster[arg2][5]);
 			-- if not CEPGP_vInfo[arg2] then
 				SendChatMessage("EPGP Standings - EP: " .. EP .. " / GP: " .. GP .. " / PR: " .. math.floor((EP/GP)*100)/100, "WHISPER", CEPGP_LANGUAGE, arg2);
 			-- else
@@ -131,7 +131,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 		end
 	elseif event == "CHAT_MSG_WHISPER" and string.lower(arg1) == "=xuqiu" then
 		if CEPGP_getGuildInfo(arg2) ~= nil then
-			local EP, GP = CEPGP_getEPGP(CEPGP_roster[arg2][5], CEPGP_GROUP);
+			local EP, GP = CEPGP_getEPGP(CEPGP_roster[arg2][5]);
 			-- if not CEPGP_vInfo[arg2] then
 				SendChatMessage(arg2 .. " PR: " .. math.floor((EP/GP)*100)/100 .. " 需求 (EP: " .. EP .. " / GP: " .. GP .. " )", "RAID", CEPGP_LANGUAGE);
 			-- else
@@ -148,7 +148,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 			for i = 1, GetNumGuildMembers() do
 				gRoster[i] = {};
 				name , _, _, _, class, _, _, oNote = GetGuildRosterInfo(i);
-				EP, GP = CEPGP_getEPGP( oNote, CEPGP_GROUP);
+				EP, GP = CEPGP_getEPGP( oNote);
 				if string.find(name, "-") then
 					name = string.sub(name, 0, string.find(name, "-")-1);
 				end
@@ -199,7 +199,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 							break;
 						end
 					end
-					EP, GP = CEPGP_getEPGP( CEPGP_roster[name][5], CEPGP_GROUP);
+					EP, GP = CEPGP_getEPGP( CEPGP_roster[name][5]);
 					class = CEPGP_roster[name][2];
 					rRoster[count] = {
 						[1] = arg2,
@@ -217,7 +217,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 							EP, GP = 0, BASEGP;
 							class = UnitClass("raid"..i);
 						else
-							EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_GROUP);
+							EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5]);
 							class = CEPGP_roster[name][2];
 						end
 						if class == compClass and name ~= arg2 then
@@ -241,7 +241,7 @@ function CEPGP_handleComms(event, arg1, arg2, response)
 							EP, GP = 0, BASEGP;
 							class = UnitClass("raid"..i);
 						else
-							EP, GP = CEPGP_getEPGP( CEPGP_roster[name][5], CEPGP_GROUP);
+							EP, GP = CEPGP_getEPGP( CEPGP_roster[name][5]);
 							class = CEPGP_roster[name][2];
 						end
 						count = count + 1;
@@ -504,7 +504,7 @@ function CEPGP_handleLoot(event, arg1, arg2)
 					SendChatMessage("Awarded " .. _G["CEPGP_distribute_item_name"]:GetText() .. " to ".. CEPGP_distPlayer .. " for free", CHANNEL, CEPGP_LANGUAGE);
 					local index = CEPGP_roster[CEPGP_distPlayer][1];
 					local _, _, _, _, _, _, _, offNote = GetGuildRosterInfo(index);
-					local EP, GP = CEPGP_getEPGP(offNote, CEPGP_GROUP);
+					local EP, GP = CEPGP_getEPGP(offNote);
 					TRAFFIC[CEPGP_ntgetn(TRAFFIC)+1] = {
 						[1] = CEPGP_distPlayer,
 						[2] = UnitName("player"),

@@ -388,7 +388,7 @@ function addEPGP(index, note, addEP, addGP)
 		EP = 0;
 		GP = BASEGP;
 	else
-		EP,GP = CEPGP_getEPGP(note, CEPGP_GROUP);
+		EP,GP = CEPGP_getEPGP(note);
 		EP = tonumber(EP);
 		GP = tonumber(GP);
 	end
@@ -402,7 +402,7 @@ function addEPGP(index, note, addEP, addGP)
 		EP = 0;
 	end
 	-- print("==" .. EP .. "/" .. GP)
-	setOffNote(index, note, EP, GP, CEPGP_GROUP);
+	setOffNote(index, note, EP, GP);
 	--GuildRosterSetOfficerNote(index, EP .. "," .. GP);
 	--GuildRosterSetPublicNote(index, EP .. "," .. GP);
 end
@@ -915,7 +915,7 @@ function CEPGP_decay(amount, msg)
 	C_Timer.After(0.1, function()
 		for name,_ in pairs(CEPGP_roster)do
 			local note = CEPGP_roster[name][5];
-			EP, GP = CEPGP_getEPGP(note, CEPGP_GROUP);
+			EP, GP = CEPGP_getEPGP(note);
 			local index = CEPGP_getIndex(name, CEPGP_roster[name][1]);
 			--[[if offNote == "" or offNote == "Click here to set an Officer's Note" then
 				GuildRosterSetOfficerNote(index, 0 .. "," .. BASEGP);
@@ -933,7 +933,7 @@ function CEPGP_decay(amount, msg)
 				if EP < 0 then
 					EP = 0;
 				end
-				setOffNote(index, note, EP, GP, CEPGP_GROUP);
+				setOffNote(index, note, EP, GP);
 				--GuildRosterSetOfficerNote(index, EP .. "," .. GP);
 				--GuildRosterSetPublicNote(index, EP .. "," .. GP);
 			--end
@@ -976,7 +976,7 @@ function CEPGP_resetAll(msg)
 	C_Timer.After(0.1, function()
 		if total > 0 then
 			for i = 1, total, 1 do
-				setOffNote(i, "",0, BASEGP, CEPGP_GROUP);
+				setOffNote(i, "",0, BASEGP);
 				--GuildRosterSetOfficerNote(i, "0,"..BASEGP);
 				--GuildRosterSetPublicNote(i, "0,"..BASEGP);
 			end

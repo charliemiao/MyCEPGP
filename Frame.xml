@@ -1360,7 +1360,7 @@
 											for i = 1, GetNumGuildMembers() do
 												local name, rank, rankIndex, _, class, _, _, officerNote = GetGuildRosterInfo(i);
 												if officerNote then
-													local EP, GP = CEPGP_getEPGP(officerNote, CEPGP_GROUP);
+													local EP, GP = CEPGP_getEPGP(officerNote);
 													if BASEGP > GP then
 														setOffNote(i, officeNote, EP, BASEGP, CEPGP_GROUP);
 <!--														GuildRosterSetOfficerNote(i, EP .. "," .. BASEGP);-->

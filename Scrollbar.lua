@@ -4,7 +4,7 @@ function CEPGP_UpdateLootScrollBar(sort)
 	for name, id in pairs(CEPGP_itemsTable) do
 		local EP, GP;
 		if CEPGP_roster[name] then
-			EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_GROUP, CEPGP_roster[name][1], name)
+			EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_roster[name][1], name)
 			tempTable[count] = {
 				[1] = name,
 				[2] = CEPGP_roster[name][2], --Class
@@ -282,7 +282,7 @@ function CEPGP_UpdateGuildScrollBar()
 
 	local tempTable = {};
 	for name, v in pairs(CEPGP_roster) do
-		local EP, GP = CEPGP_getEPGP(v[5], CEPGP_GROUP, v[1], name)
+		local EP, GP = CEPGP_getEPGP(v[5], v[1], name)
 		if not EP then EP = 0; end
 		if not GP then GP = BASEGP; end
 		tempTable[v[1]] = {
@@ -340,7 +340,7 @@ function CEPGP_UpdateRaidScrollBar()
 		local name = CEPGP_raidRoster[i][1];
 		local EP, GP;
 		if CEPGP_roster[name] then
-			EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_GROUP, CEPGP_roster[name][1], name);
+			EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_roster[name][1], name);
 			if not EP then EP = 0; end
 			if not GP then GP = BASEGP; end
 			tempTable[i] = {

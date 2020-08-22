@@ -527,7 +527,7 @@ function CEPGP_rosterUpdate(event)
 				name = string.sub(name, 0, string.find(name, "-")-1);
 			end
 			if name then
-				local EP, GP = CEPGP_getEPGP(officerNote, CEPGP_GROUP, i, name);
+				local EP, GP = CEPGP_getEPGP(officerNote, i, name);
 				
 				local PR = math.floor((EP/GP)*100)/100;
 				CEPGP_roster[name] = {
@@ -603,7 +603,7 @@ function CEPGP_rosterUpdate(event)
 			local _, _, _, _, class, classFileName = GetRaidRosterInfo(i);
 			if CEPGP_roster[name] then
 				rank = CEPGP_roster[name][3];
-				local EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], CEPGP_GROUP, _, name);
+				local EP, GP = CEPGP_getEPGP(CEPGP_roster[name][5], _, name);
 				local rankIndex = CEPGP_roster[name][4];
 				CEPGP_raidRoster[i] = {
 					[1] = name,
@@ -669,7 +669,7 @@ function CEPGP_addToStandby(player)
 		end
 	end	
 	local _, class, rank, rankIndex, oNote, _, classFile = CEPGP_getGuildInfo(player);
-	local EP,GP = CEPGP_getEPGP(oNote, CEPGP_GROUP);
+	local EP,GP = CEPGP_getEPGP(oNote);
 	CEPGP_standbyRoster[#CEPGP_standbyRoster+1] = {
 		[1] = player,
 		[2] = class,
@@ -835,47 +835,78 @@ end
 --	end
 --end
 
-function CEPGP_getEPGP(offNote, group, index, name)
+function CEPGP_getEPGP(offNote, index, name)
 	-- print("i = " .. i .. "/" .. group)
 	-- print("5555555555 " .. offNote .. "/" .. name)
 	if not name then index = CEPGP_nameToIndex(name); end
+
+	--local groupNoteArray = CEPGP_split(offNote, ";");
+	--local groupNote = groupNoteArray[CEPGP_GROUP];
+
+	local groupNoteArray = CEPGP_split(offNote, ";");
+	local groupNote = groupNoteArray[CEPGP_GROUP];
+
 	local EP, GP = nil;
 
-	local epgpArray = Split(offNote, ";");
-	offNote = epgpArray[group];
-	-- print("666666666666 " .. offNote)
-	if not CEPGP_checkEPGP(offNote) then
+	if not CEPGP_checkEPGP(groupNote) then
 		return 0, BASEGP;
 	else
-		EP = tonumber(strsub(offNote, 1, strfind(offNote, ",")-1));
-		GP = tonumber(strsub(offNote, strfind(offNote, ",")+1, string.len(offNote)));
+		EP = tonumber(strsub(groupNote, 1, strfind(groupNote, ",")-1));
+		GP = tonumber(strsub(groupNote, strfind(groupNote, ",")+1, string.len(groupNote)));
+		GP = math.max(math.floor(GP), BASEGP);
 		return EP, GP;
 	end
 end
+--
+--function CEPGP_getEPGP(name, index)
+--	if not index and not name then return; end
+--	local offNote;
+--
+--	index = CEPGP_getIndex(name);
+--	if not index then return 0, CEPGP.GP.Min; end
+--	_, _, _, _, _, _, _, offNote = GetGuildRosterInfo(index);
+--
+--	local groupNoteArray = CEPGP_split(offNote, ";");
+--	local groupNote = groupNoteArray[CEPGP_GROUP];
+--
+--	local EP, GP = nil;
+--
+--	if not CEPGP_checkEPGP(groupNote) then
+--		return 0, CEPGP.GP.Min;
+--	else
+--		EP = tonumber(strsub(groupNote, 1, strfind(groupNote, ",")-1));
+--		GP = tonumber(strsub(groupNote, strfind(groupNote, ",")+1, string.len(groupNote)));
+--		GP = math.max(math.floor(GP), CEPGP.GP.Min);
+--		return EP, GP;
+--	end
+--end
 
 
-
-
-function checkOffNote(index, offNote)
-	if offNote == "" or offNote == "Click here to set an Officer's Note" then
-		--offNote = "0," .. BASEGP;
-		setOffNote(index, "",0, BASEGP, CEPGP_GROUP);
-		--GuildRosterSetOfficerNote(index, "0," .. BASEGP);
-		--GuildRosterSetPublicNote(index, "0," .. BASEGP);
-
-	end
-end
+--function checkOffNote(index, offNote)
+--	if offNote == "" or offNote == "Click here to set an Officer's Note" then
+--		--offNote = "0," .. BASEGP;
+--		setOffNote(index, "",0, BASEGP);
+--		--GuildRosterSetOfficerNote(index, "0," .. BASEGP);
+--		--GuildRosterSetPublicNote(index, "0," .. BASEGP);
+--
+--	end
+--end
 
 --function setOffNote(index, EP, GP)
 --	GuildRosterSetOfficerNote(index, EP .. "," .. GP);
 --	GuildRosterSetPublicNote(index, EP .. "," .. GP);
 --end
 
-function setOffNote(index, offNote, EP, GP, group)
-	if offNote == "" or offNote == "Click here to set an Officer's Note" then
-		offNote = 0 .. "," .. BASEGP .. ";" .. 0 .. "," .. BASEGP .. ";";
+function setOffNote(index, offNote, EP, GP)
+	--if offNote == "" or offNote == "Click here to set an Officer's Note" then
+	--	offNote = 0 .. "," .. BASEGP .. ";" .. 0 .. "," .. BASEGP .. ";";
+	--end
+	local epgpArray = CEPGP_split(offNote, ";");
+	for i=1,2 do
+		if not CEPGP_checkEPGP(epgpArray[i]) then
+			epgpArray[i] = 0 .. "," .. BASEGP;
+		end
 	end
-	local epgpArray = Split(offNote, ";");
 	local note = EP .. "," .. GP;
 	-- print("epgpArray")
 	-- print(epgpArray[0])
@@ -895,42 +926,75 @@ function setOffNote(index, offNote, EP, GP, group)
 	GuildRosterSetPublicNote(index, offNote);
 end
 
-function Split(szFullString, szSeparator)
-	local nFindStartIndex = 1
-	local nSplitIndex = 1
-	local nSplitArray = {}
-	while true do
-		local nFindLastIndex = string.find(szFullString, szSeparator, nFindStartIndex)
-		if not nFindLastIndex then
-			nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))
-			break
-		end
-		local temp = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
-		if temp and temp ~= "" then
-			nSplitArray[nSplitIndex] = temp
-		end
-		nFindStartIndex = nFindLastIndex + string.len(szSeparator)
-		nSplitIndex = nSplitIndex + 1
-	end
-	return nSplitArray
-end
+--function CEPGP_setEPGP(index, partNote)
+--	local offNote;
+--
+--	_, _, _, _, _, _, _, offNote = GetGuildRosterInfo(index);
+--
+--	local epgpArray = CEPGP_split(offNote, ";");
+--	for i=1,2 do
+--		if not CEPGP_checkEPGP(epgpArray[i]) then
+--			epgpArray[i] = 0 .. "," .. BASEGP;
+--		end
+--	end
+--
+--	--EP = math.max(math.floor(EP), 0);
+--	--GP = math.max(math.floor(GP), CEPGP.GP.Min);
+--
+--	--local note = partNote;
+--	-- print("epgpArray")
+--	-- print(epgpArray[0])
+--	-- print(epgpArray[1])
+--	-- print(epgpArray[2])
+--	epgpArray[CEPGP_GROUP] = partNote;
+--	local offNote = "";
+--	for i=1,2 do
+--		if epgpArray[i] and epgpArray[i] ~= "" then
+--			-- print(i .. "/" .. epgpArray[i])
+--			offNote = offNote .. epgpArray[i] .. ";"
+--			-- print(":" .. offNote)
+--		end
+--	end
+--	-- print("---1 " .. offNote)
+--	GuildRosterSetOfficerNote(index, offNote);
+--	GuildRosterSetPublicNote(index, offNote);
+--end
+
+--function Split(szFullString, szSeparator)
+--	local nFindStartIndex = 1
+--	local nSplitIndex = 1
+--	local nSplitArray = {}
+--	while true do
+--		local nFindLastIndex = string.find(szFullString, szSeparator, nFindStartIndex)
+--		if not nFindLastIndex then
+--			nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))
+--			break
+--		end
+--		local temp = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
+--		if temp and temp ~= "" then
+--			nSplitArray[nSplitIndex] = temp
+--		end
+--		nFindStartIndex = nFindLastIndex + string.len(szSeparator)
+--		nSplitIndex = nSplitIndex + 1
+--	end
+--	return nSplitArray
+--end
 
 function CEPGP_checkEPGP(note)
 	if string.find(note, '[^0-9,;-]') or note == "0" or note == "" then
 		return false;
 	end
-	-- if string.find(note, '^[0-9]+,[0-9]+$') then --EPGP is positive
-	-- 	return true;
-	-- elseif string.find(note, '^%-[0-9]+,[0-9]+$') then --EP is negative
-	-- 	return true;
-	-- elseif string.find(note, '^[0-9]+,%-[0-9]+$') then --GP is negative
-	-- 	return true;
-	-- elseif string.find(note, '^%-[0-9]+,%-[0-9]+$') then --EPGP is negative
-	-- 	return true;
-	-- else
-	-- 	return false;
-	-- end
-	return true;
+	 if string.find(note, '^[0-9]+,[0-9]+$') then --EPGP is positive
+		return true;
+	 elseif string.find(note, '^%-[0-9]+,[0-9]+$') then --EP is negative
+		return true;
+	 elseif string.find(note, '^[0-9]+,%-[0-9]+$') then --GP is negative
+		return true;
+	 elseif string.find(note, '^%-[0-9]+,%-[0-9]+$') then --EPGP is negative
+		return true;
+	 else
+		return false;
+	 end
 end
 
 function CEPGP_getItemString(link)
@@ -1588,7 +1652,7 @@ function CEPGP_formatExport()
 	local temp = {};
 	local text = "";
 	for k, v in pairs(CEPGP_roster) do
-		local EP,GP = CEPGP_getEPGP(v[5], CEPGP_GROUP);
+		local EP,GP = CEPGP_getEPGP(v[5]);
 		temp[#temp+1] = {
 			[1] = k, -- Player Name
 			[2] = v[2], -- Class
@@ -2037,7 +2101,7 @@ function CEPGP_importStandings()
 					GP = frags[i+2];
 					index = CEPGP_getIndex(name);
 					output:SetText(output:GetText() .. "\nProcessing record: " .. name);
-					setOffNote(index, "", EP, GP, CEPGP_GROUP);
+					setOffNote(index, "", EP, GP);
 					--GuildRosterSetOfficerNote(index, EP .. "," .. GP);
 					--GuildRosterSetPublicNote(index, EP .. "," .. GP);
 					CEPGP_import_progress_scrollframe:SetVerticalScroll(CEPGP_import_progress_scrollframe:GetVerticalScroll()+12);
