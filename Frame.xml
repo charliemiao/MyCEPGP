@@ -1385,13 +1385,13 @@
 								</Anchors>
 								<Scripts>
 									<OnClick>
-										if self:GetChecked() then
-											CEPGP_minGPDecayFactor = true;
-											CEPGP_print("Now subtracting minimum GP from calculation when decaying guild EPGP standings.");
-										else
-											CEPGP_minGPDecayFactor = false;
-											CEPGP_print("No longer subtracting minimum GP from calculation when decaying guild EPGP standings.");
-										end
+<!--										if self:GetChecked() then-->
+<!--											CEPGP_minGPDecayFactor = true;-->
+<!--											CEPGP_print("Now subtracting minimum GP from calculation when decaying guild EPGP standings.");-->
+<!--										else-->
+<!--											CEPGP_minGPDecayFactor = false;-->
+<!--											CEPGP_print("No longer subtracting minimum GP from calculation when decaying guild EPGP standings.");-->
+<!--										end-->
 									</OnClick>
 									<OnEnter>
 										GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");

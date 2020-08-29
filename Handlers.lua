@@ -291,7 +291,6 @@ function CEPGP_handleCombat(name, except, guid)
 	if (L[name] == "The Prophet Skeram" or L[name] == "Majordomo Executus") and not except then
 		return;
 	end
-	print("CEPGP_handleCombat 1");
 	if (L[name] == "Lord Kazzak" or	L[name] == "Azuregos" or
 		L[name] == "Emeriss" or	L[name] == "Lethon" or
 		L[name] == "Ysondre" or	L[name] == "Taerar") and not except then
@@ -302,9 +301,7 @@ function CEPGP_handleCombat(name, except, guid)
 			CEPGP_ep_award_confirm:Show();
 			return;
 	end
-	print("CEPGP_handleCombat 2");
 	if CEPGP_tContains(CEPGP_kills, guid) then return; end
-	print("CEPGP_handleCombat 3");
 	local EP;
 	if (((GetLootMethod() == "master" and CEPGP_isML() == 0) or (GetLootMethod() == "group" and UnitIsGroupLeader("player"))) and CEPGP_ntgetn(CEPGP_roster) > 0) or CEPGP_debugMode then
 		local success = CEPGP_getCombatModule(name, guid);
@@ -333,6 +330,7 @@ function CEPGP_handleCombat(name, except, guid)
 		CEPGP_UpdateStandbyScrollBar();
 	end
 end
+
 
 function CEPGP_getCombatModule(name, guid)
 	--Majordomo Executus

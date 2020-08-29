@@ -74,8 +74,8 @@ CEPGP_gp_tooltips = false;
 CEPGP_suppress_announcements = false;
 STANDBYPERCENT = nil;
 STANDBYRANKS = {};
-SLOTWEIGHTS = {};
-DEFSLOTWEIGHTS = {["2HWEAPON"] = 2,["WEAPONMAINHAND"] = 1.5,["WEAPON"] = 1.5,["WEAPONOFFHAND"] = 0.5,["HOLDABLE"] = 0.5,["SHIELD"] = 0.5,["RANGED"] = 0.5,["RANGEDRIGHT"] = 0.5,["RELIC"] = 0.5,["HEAD"] = 1,["NECK"] = 0.5,["SHOULDER"] = 0.75,["CLOAK"] = 0.5,["CHEST"] = 1,["ROBE"] = 1,["WRIST"] = 0.5,["HAND"] = 0.75,["WAIST"] = 0.75,["LEGS"] = 1,["FEET"] = 0.75,["FINGER"] = 0.5,["TRINKET"] = 0.75};
+SLOTWEIGHTS = {["2HWEAPON"] = 2,["WEAPONMAINHAND"] = 1.5,["WEAPON"] = 1.5,["WEAPONOFFHAND"] = 0.5,["HOLDABLE"] = 0.5,["SHIELD"] = 0.5,["RANGED"] = 0.5,["RANGEDRIGHT"] = 0.5,["RELIC"] = 0.5,["HEAD"] = 1,["NECK"] = 0.5,["SHOULDER"] = 0.75,["CLOAK"] = 0.5,["CHEST"] = 1,["ROBE"] = 1,["WRIST"] = 0.5,["HAND"] = 0.75,["WAIST"] = 0.75,["LEGS"] = 1,["FEET"] = 0.75,["FINGER"] = 0.5,["TRINKET"] = 0.75};
+--DEFSLOTWEIGHTS = {["2HWEAPON"] = 2,["WEAPONMAINHAND"] = 1.5,["WEAPON"] = 1.5,["WEAPONOFFHAND"] = 0.5,["HOLDABLE"] = 0.5,["SHIELD"] = 0.5,["RANGED"] = 0.5,["RANGEDRIGHT"] = 0.5,["RELIC"] = 0.5,["HEAD"] = 1,["NECK"] = 0.5,["SHOULDER"] = 0.75,["CLOAK"] = 0.5,["CHEST"] = 1,["ROBE"] = 1,["WRIST"] = 0.5,["HAND"] = 0.75,["WAIST"] = 0.75,["LEGS"] = 1,["FEET"] = 0.75,["FINGER"] = 0.5,["TRINKET"] = 0.75};
 AUTOEP = {};
 EPVALS = {};
 RECORDS = {};
@@ -922,11 +922,11 @@ function CEPGP_decay(amount, msg)
 				EP,GP = CEPGP_getEPGP(offNote);
 			else]]
 				EP = math.floor(tonumber(EP)*(1-(amount/100)));
-				if CEPGP_minGPDecayFactor then
+				--if CEPGP_minGPDecayFactor then
 					GP = math.floor((tonumber((GP-BASEGP))*(1-(amount/100)))+BASEGP);
-				else
-					GP = math.floor((tonumber(GP)*(1-(amount/100))));
-				end
+				--else
+				--	GP = math.floor((tonumber(GP)*(1-(amount/100))));
+				--end
 				if GP < BASEGP then
 					GP = BASEGP;
 				end

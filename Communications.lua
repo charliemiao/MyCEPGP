@@ -190,11 +190,11 @@ function CEPGP_IncAddonMsg(message, sender, sync)
 		CEPGP_SendAddonMsg(target..";impresponse;BASEGP;"..BASEGP, lane);
 		CEPGP_SendAddonMsg(target..";impresponse;WHISPERMSG;"..CEPGP_standby_whisper_msg, lane);
 		CEPGP_SendAddonMsg(target..";impresponse;KEYWORD;"..CEPGP_keyword, lane);
-		if CEPGP_minGPDecayFactor then
+		--if CEPGP_minGPDecayFactor then
 			CEPGP_SendAddonMsg(target..";impresponse;BASEGPFACTOR;true", lane);
-		else
-			CEPGP_SendAddonMsg(target..";impresponse;BASEGPFACTOR;false", lane);
-		end
+		--else
+		--	CEPGP_SendAddonMsg(target..";impresponse;BASEGPFACTOR;false", lane);
+		--end
 		
 			--	Loot GUI Options	--
 		for index, v in ipairs(CEPGP_response_buttons) do
@@ -345,12 +345,12 @@ function CEPGP_IncAddonMsg(message, sender, sync)
 				MOD_COEF = tonumber(val);
 			elseif option == "BASEGP" then
 				BASEGP = tonumber(val);
-			elseif option == "BASEGPFACTOR" then
-				if val == "true" then
-					CEPGP_minGPDecayFactor = true;
-				else
-					CEPGP_minGPDecayFactor = false;
-				end
+			--elseif option == "BASEGPFACTOR" then
+				--if val == "true" then
+				--	CEPGP_minGPDecayFactor = true;
+				--else
+				--	CEPGP_minGPDecayFactor = false;
+				--end
 			elseif option == "STANDBYBYRANK" then
 				if val == "1" then
 					CEPGP_standby_byrank = true;

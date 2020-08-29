@@ -79,7 +79,7 @@ function CEPGP_initialise()
 	for k, entity in pairs(bossNames) do
 		entity:SetText(L[entity:GetText()])
 	end
-	if CEPGP_ntgetn(SLOTWEIGHTS) == 0 then
+	--if CEPGP_ntgetn(SLOTWEIGHTS) == 0 then
 		SLOTWEIGHTS = {
 			["2HWEAPON"] = 2,
 			["WEAPONMAINHAND"] = 1.5,
@@ -105,7 +105,7 @@ function CEPGP_initialise()
 			["TRINKET"] = 0.75,
 			["EXCEPTION"] = 1
 		}
-	end
+	--end
 	if STANDBYPERCENT ==  nil then
 		STANDBYPERCENT = 0;
 	end
@@ -1459,11 +1459,11 @@ function CEPGP_getDebugInfo()
 	info = info .. "Locale: " .. GetLocale() .. "<br />\n";
 	info = info .. "GP Formula: (" .. COEF .. "x(" .. MOD_COEF .. "^<sup>((ilvl/26)+(rarity-4))</sup>)xSlot Modifier)x" .. MOD .. "<br />";
 	info = info .. "Base GP: " .. BASEGP .. "<br />\n";
-	if CEPGP_minGPDecayFactor then
+	--if CEPGP_minGPDecayFactor then
 		info = info .. "Base GP Decay Factor: true<br />\n";
-	else
-		info = info .. "Base GP Decay Factor: false<br />\n";
-	end
+	--else
+	--	info = info .. "Base GP Decay Factor: false<br />\n";
+	--end
 	if STANDBYEP then
 		info = info .. "Standby EP: True<br />\n";
 	else
